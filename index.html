@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>html</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<div id="dndlabel">
+			<div id="dragover">
+				<h1>Drop file here</h1>
+			</div>
+			<h4>Just drag'n'drop csv with data.</h4>
+			<h4>or <label>Selectf file: <input type="file" id="file" name="file"/></label></h4>
+			<h4>Or</h4>
+		</div>
+		<h4>Enter manually:</h4>
+		<p>
+			<label> Rows: <input value="0" size="1" id="rows"type="text" /></label>
+			<label> Cols: <input value="0" size="1" id="cols"type="text" /></label>
+			<button id="rnd">Randomize</button>
+		</p>
+		<h4>Click on interesting cell to start.</h4>
+		<table id="table"></table>
+
+		<script src="algorithm.js"></script>
+		<script src="main.js"></script>
+	</body>
+</html>
