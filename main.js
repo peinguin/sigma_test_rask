@@ -6,18 +6,18 @@ var INIT_SIZE_X = 1,
 	ALGORITHM_FILE_NAME = 'algorithm.js';
 
 function loadScript(url) {
-  var body = document.body,
-  	script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = url;
+	var body = document.body,
+	script = document.createElement('script');
+	script.type = 'text/javascript';
+	script.src = url;
 
-  body.appendChild(script);
+	body.appendChild(script);
 }
 
 function getNodeIndex(node) {
 	var i = 0;
-	while( (node = node.previousSibling) != null ) {
-	  i++;
+	while( (node = node.previousSibling) !== null ) {
+		i++;
 	}
 
 	return i;
@@ -46,11 +46,13 @@ function Communicator() {
 	}
 
 	function trigger(point, array, cb) {
-		callback = cb,
-		message = {
+		callback = cb;
+
+		var message = {
 			point: point,
 			array: array
 		};
+
 		if (worker) {
 			worker.postMessage(message);
 		}
@@ -262,18 +264,6 @@ function TableController(calculate) {
 		return colsCount;
 	}
 
-	function getCurrentColsCount() {
-		var tr = table.querySelector('tr');
-		if (!tr) {
-			return 0;
-		}
-		return tr.querySelectorAll('td').length;
-	}
-
-	function getCurrentRowsCount() {
-		return table.querySelectorAll('tr').length;
-	}
-
 	function generateCol() {
 		var td = document.createElement('td'),
 			input = document.createElement('input');
@@ -300,7 +290,7 @@ function TableController(calculate) {
 
 	function setRows() {
 		var rowsCount = getRowsCount(),
-			nowRows = getCurrentRowsCount();
+			nowRows = table.querySelectorAll('tr').length;
 
 		while (rowsCount !== nowRows) {
 			if (rowsCount > nowRows) {
@@ -363,9 +353,9 @@ function TableController(calculate) {
 			rowsCount = getRowsCount(),
 			colsCount = getColsCount(),
 			i, j, row;
-		for (var i = 0; i < rowsCount; i++) {
+		for (i = 0; i < rowsCount; i++) {
 			row = [];
-			for (var j = 0; j < colsCount; j ++) {
+			for (j = 0; j < colsCount; j ++) {
 				row.push(Math.floor(Math.random() * MAX_RANDOM_INT) + MIN_RANDOM_INT);
 			}
 			data.push(row);
@@ -376,8 +366,8 @@ function TableController(calculate) {
 }
 
 var communicator = new Communicator(),
-	tableController = new TableController(communicator.trigger);
-new MyFileReader(tableController.setData);
+	tableController = new TableController(communicator.trigger),
+	myFileReader = new MyFileReader(tableController.setData);
 
 tableController.setCols(INIT_SIZE_X);
 tableController.setRows(INIT_SIZE_Y);
