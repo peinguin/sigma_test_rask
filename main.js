@@ -46,14 +46,13 @@ function Communicator() {
 	}
 
 	function trigger(point, array, cb) {
-		callback = cb;
-
 		var message = {
 			point: point,
 			array: array
 		};
 
 		if (worker) {
+			callback = cb;
 			worker.postMessage(message);
 		}
 		else {
