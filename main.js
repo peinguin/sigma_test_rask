@@ -194,7 +194,7 @@ function TableController(calculate) {
 		return Array.prototype.reduce.call(table.querySelectorAll('tr'), function clearRow(data, tr) {
 			var row = Array.prototype.reduce.call(tr.querySelectorAll('td'), function clearCell(row, td) {
 				var input = td.querySelector('input'),
-					value = parseInt(input, 10);
+					value = parseInt(input.value, 10);
 
 				if (isNaN(value)) {
 					value = 0;
@@ -222,12 +222,13 @@ function TableController(calculate) {
 
 		clearSelection();
 
-		input.parentNode.className = 'initial';
-
 		position[0] = getNodeIndex(input.parentNode.parentNode);
 		position[1] = getNodeIndex(input.parentNode);
 
-		calculate(position, serializeData(), setSelection);
+		calculate(position, serializeData(), function onResult(cells) {
+			setSelection(cells);
+			input.parentNode.className = 'initial';
+		});
 	}
 
 	function getRowsCount() {
@@ -325,6 +326,8 @@ function TableController(calculate) {
 	}
 
 	function setData(data) {
+		clearSelection();
+
 		rows.value = data.length;
 		setRows();
 
